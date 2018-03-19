@@ -1,0 +1,41 @@
+{% extends "blog/nav.html" %}
+
+{% load static %}
+
+{% block title %}<title>Add article</title>{% endblock %}
+
+{% block main %}
+
+            <main>
+            	<div class="contact">
+                <section class="contact-content">
+				    
+                    <form action="{% url 'article-add' %}" method="POST">
+				        {% csrf_token %}
+				        {{ form.non_field_errors }}
+				        <div class="form-wrapper">
+				        	
+				            <div class="first_name">
+				            	{{ form.headline.errors }}
+				            	<label for="{{ form.headline.id_for_label }}">Headline:</label><br/> 
+				            	{{ form.headline }}
+				        	</div>
+	                       <div class="message">
+				            	{{ form.content.errors }}
+				            	<label for="{{ form.content.id_for_label }}">Content:</label>
+				            	{{ form.content }}
+				        	</div>
+				        	<div class="last_name">
+				            	{{ form.tags.errors }}
+				            	<label for="{{ form.tags.id_for_label }}">Tags:</label><br/> 
+				            	{{ form.tags }}
+				        	</div>
+				        	<input type="submit" value="Save Article">
+				    	</div>
+				    	
+				    </form>
+                </section>
+                </div>
+			</main>
+			
+{% endblock %}

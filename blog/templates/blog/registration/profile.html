@@ -1,0 +1,57 @@
+{% extends "blog/nav.html" %}
+
+{% load static %}
+
+{% block title %}<title>Profile</title>{% endblock %}
+
+{% block main %}
+  <section class="profile-block">
+      <section class="profile-top">
+          <h1>Profile</h1>
+      </section>
+      <form action="{% url 'profile' %}" method="POST">
+          {% csrf_token %}
+          <div class="profile-wrapper">
+              <div class="input-wrapper">
+                  <label for="{{ form.username.id_for_label }}">Username:</label>
+                  {{ form.username }}
+              </div>
+              <div class="errors-profile">
+                  {{ form.username.errors}}
+              </div>
+              <div class="input-wrapper">
+                  <label for="{{ form.first_name.id_for_label }}">First name:</label>
+                  {{ form.first_name }}
+              </div>
+              <div class="errors-profile">
+              	  {{ form.first_name.errors}}
+              </div>
+              <div class="input-wrapper">
+                  <label for="{{ form.last_name.id_for_label }}">Last name:</label>
+                  {{ form.last_name }}
+              </div>
+              <div class="errors-profile">
+              	  {{ form.last_name.errors}}
+              </div>
+              <div class="input-wrapper">
+                  <label for="{{ form.email.id_for_label }}">Email address:</label>
+                  {{ form.email }}
+              </div>
+              <div class="errors-profile">
+                  {{ form.email.errors}}
+              </div>
+    
+              <div class="password-form input-wrapper">
+                  <p>You can change your password using followed: <a href="{% url 'change_password' %}">Form</a></p>
+              </div>
+              <div class="submit">
+              	   <button type="submit">Edit profile</button>
+              </div>
+          	
+          </div>
+      </form>
+
+  	
+  </section>
+
+{% endblock %}

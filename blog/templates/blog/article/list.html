@@ -1,0 +1,34 @@
+{% extends "blog/nav.html" %}
+
+{% load static %}
+
+{% block title %}<title>Article list page</title>{% endblock %}
+
+{% block main %}
+            <main>
+            	<div class="article-block">
+            		<div class="top">
+            			<h1>Articles</h1>
+            			<div>
+            				<a href="{% url 'article-add' %}">ADD ARTICLE</a>
+            			</div>
+            		</div>
+            	<section class="articles">
+                {% for article in articles %}
+                <div class="article-wrapper">
+                    <div class="article">
+                        <p><span>Headline: </span><a href="{% url 'article-get' article.id %}" class="headline">"{{article.headline}}"</a></p>
+                        <p class="tags"><span>Tags: </span>{{article.tags}}</p>
+                        <p class="posted"><span>Posted: </span>{{article.posted}}</p>
+                    </div>
+                    <div class="article-button">
+                    	<a href="{% url 'article-update' article.id %}" class="edit">Edit</a>
+                    	<a href="{% url 'article-delete' article.id %}" class="delete">Delete</a>
+                    </div>
+                </div>  
+                {% endfor %} 
+				</section>
+				</div>
+            </main>
+			
+{% endblock %}

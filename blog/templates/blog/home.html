@@ -1,0 +1,27 @@
+{% extends "blog/nav.html" %}
+
+{% load static %}
+
+{% block title %}<title>Home Page</title>{% endblock %}
+
+{% block main %}
+            <main>
+            	<div class="article-block">
+            		<div class="top">
+            			<h1>Articles</h1>
+            		</div>
+            	<section class="articles">
+                {% for article in articles %}
+                <div class="article-wrapper">
+                    <div class="article">
+                        <p><span>Headline: </span><a href="{% url 'article-get' article.id %}" class="headline">"{{article.headline}}"</a></p>
+                        <p class="tags"><span>Tags: </span>{{article.tags}}</p>
+                        <p class="posted"><span>Posted: </span>{{article.posted}}</p>
+                    </div>
+                </div>  
+                {% endfor %} 
+				</section>
+				</div>
+            </main>
+			
+{% endblock %}

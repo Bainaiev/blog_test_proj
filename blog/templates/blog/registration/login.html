@@ -1,0 +1,32 @@
+{% extends "blog/nav.html" %}
+
+{% load static %}
+
+{% block title %}<title>Login</title>{% endblock %}
+
+{% block main %}
+  <section class="login-block">
+      <div class="login-header">
+           <h2>Login</h2>
+      </div>
+      <form action="{% url 'login' %}" method="POST">
+          {% csrf_token %}
+          <div class="login-wrapper">
+              <div class="email-login">
+                   <label for="{{ form.username.id_for_label }}">Username: </label>
+                   {{ form.username }}
+              </div>
+              <div class="password">
+                   <label for="{{ form.password.id_for_label }}">Password: </label>
+                   {{ form.password }}
+              </div>
+              <div class="errors">
+                   {{ form.non_field_errors }}
+              </div>
+              <div class="submit">
+                   <button type="submit">Login</button>
+              </div>
+            </div>
+      </form>
+  </section>
+{% endblock %}

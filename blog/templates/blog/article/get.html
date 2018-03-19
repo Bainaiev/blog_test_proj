@@ -1,0 +1,29 @@
+{% extends "blog/nav.html" %}
+
+{% load static %}
+
+{% block title %}<title>Get article</title>{% endblock %}
+
+{% block main %}
+
+            <main>
+            	<div class="article-block">
+            		<div class="top">
+            			<h1>Articles</h1>
+            		</div>
+            	
+         
+                <div class="article-wrapper">
+                    <div class="article">
+                        <p><a href="" class="headline">"{{article.headline}}"</a></p>
+                        <p class="content">{{article.content}}</p>
+                        <p class="tags">{{article.tags}}</p>
+                        <p class="posted">{{article.posted}}</p>
+                    </div>
+                </div>  
+               
+				
+				</div>
+            </main>
+			
+{% endblock %}

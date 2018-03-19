@@ -1,0 +1,21 @@
+{% extends "blog/nav.html" %}
+
+{% load static %}
+
+{% block title %}<title>Delete article</title>{% endblock %}
+
+{% block main %}
+
+            <main>
+            	<div class="delete-confirmation">
+                    <form action="{% url 'article-delete' pk %}" method="POST">
+				        {% csrf_token %}
+				        {{ form.non_field_errors }}
+				        <p>If you really want delete article, please click button</p>
+				        <input type="submit" value="Delete Article">
+				    </form>
+                
+                </div>
+			</main>
+			
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "blog/nav.html" %}
+
+{% load static %}
+
+{% block title %}<title>Sign up</title>{% endblock %}
+
+{% block main %}
+
+
+  <section class="registration-block">
+  	
+      <div class="registration-header">
+  		   <h2>Registration</h2>
+      </div>
+      <form action="{% url 'signup' %}" method="POST">
+      	  {% csrf_token %}
+      	  <div class="registration-wrapper">
+              <div class="username-registration">
+              	   <label for="{{ form.username.id_for_label }}">UserName: </label>
+              	   {{ form.username }}
+              </div>
+              <div class="errors">
+              	   {{form.username.errors}}
+              </div>
+              <div class="email-registration">
+                   <label for="{{ form.email.id_for_label }}">Email: </label>
+                   {{ form.email }}
+              </div>
+              <div class="errors">
+                   {{form.email.errors}}
+              </div>
+              <div class="password">
+              	   <label for="{{ form.password1.id_for_label }}">Password: </label>
+              	   {{ form.password1 }}
+              </div>
+               <div class="errors">
+              	   {{form.password1.errors}}
+              </div>
+              <div class="password-confirmation">
+              	   <label for="{{ form.password2.id_for_label }}">Password confirmation: </label>
+              	   {{ form.password2 }}
+              </div>
+               <div class="errors">
+              	  {{form.password2.errors}}
+              </div>
+              <div class="errors">
+                  {{ form.non_field_errors }}
+              </div>
+              <div class="submit">
+              	   <button type="submit">Sign up</button>
+              </div>
+          </div>
+      </form>
+  </section>
+  
+{% endblock %}

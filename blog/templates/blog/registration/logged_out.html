@@ -1,0 +1,14 @@
+{% extends "blog/nav.html" %}
+
+{% block title %}<title>Logout</title>{% endblock %}
+
+
+{% block main %}
+
+<div class="logout-page">
+    <h1>Logged out</h1>
+    <p>Thanks for spending some quality time with Web site today.</p>
+    <a href="{% url 'login' %}">Log in again</a>
+</div>
+
+{% endblock %}
