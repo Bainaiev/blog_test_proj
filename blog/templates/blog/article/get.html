@@ -15,15 +15,31 @@
          
                 <div class="article-wrapper">
                     <div class="article">
-                        <p><a href="" class="headline">"{{article.headline}}"</a></p>
+                        <p class="headline">"{{article.headline}}"</p>
                         <p class="content">{{article.content}}</p>
                         <p class="tags">{{article.tags}}</p>
                         <p class="posted">{{article.posted}}</p>
                     </div>
                 </div>  
+
+                <h2>Comments</h2>
                
 				
 				</div>
+
+                <div class="comment-block">
+                    {% for comment in comments %}
+                    <div style="margin: 0 0 20px {{ comment.html_level }}%">
+                    {{ comment.user.username }}&nbsp;&nbsp;<small>{{ comment.date|date:"d.m.Y G:i" }}</small>
+                    {{comment.id}}
+                    <div>{{ comment.text }}</div>
+                    <a href="{% url 'comment-add' article.id comment.id %}" >reply</a>
+                </div> 
+                    {% endfor %} 
+                    
+                </div>
+
+                <a href="{% url 'comment-add' article.id 0 %}">Add Comment</a>
             </main>
 			
 {% endblock %}

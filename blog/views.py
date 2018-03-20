@@ -16,6 +16,8 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 
+from django.contrib.contenttypes.models import ContentType
+
 
 # Create your views here.
 
@@ -145,7 +147,47 @@ class ArticleGet(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['article'] = models.Article.objects.get(pk=self.kwargs['pk'])
+        article = models.Article.objects.get(pk=self.kwargs['pk'])
+        comments = article.comments.all()
+        context['article'] = article
+        context['comments'] = comments
         return context
 
+@method_decorator(login_required, name='dispatch')
+class CommentCreate(View):
+    form_class = forms.CommentForm
+    template_name = 'blog/comment/add.html'
 
+    def get(self, request, *args, **kwargs):
+        article = models.Article.objects.get(pk=self.kwargs['pk'])
+        parent_id = self.kwargs['parent_id']
+        comments = article.comments.all()
+        initial = { 
+            'user': request.user.id,
+            'parent_id': parent_id,
+            'content_id' : article.id,
+            'content_type': ContentType.objects.get_for_model(article).id,
+        }
+        form = self.form_class(initial)
+        return render(request, self.template_name, {'form': form, 'article': article, 'comments': comments})
+
+    def post(self, request, *args, **kwargs):
+        article = models.Article.objects.get(pk=self.kwargs['pk'])
+        comments = article.comments.all()
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            content_id = form.cleaned_data.get('content_id')
+            content_type = form.cleaned_data.get('content_type')
+            parent_id = form.cleaned_data.get('parent_id')
+            message = form.cleaned_data.get('message')
+            user = form.cleaned_data.get('user')
+            object = ContentType.objects.get(pk=content_type).get_object_for_this_type(pk=content_id)
+            c = models.Comment(
+                text = message,
+                user = User.objects.get(pk=user),
+                content_object = object
+            )
+            c.parent_id = parent_id
+            c.save()
+            return redirect(reverse('article-get', args=(self.kwargs['pk'],)), {'article': article, 'comments': comments})
+        return render(request, self.template_name, {'form': form, 'article': article, 'comments': comments})

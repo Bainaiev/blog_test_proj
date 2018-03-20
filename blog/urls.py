@@ -3,6 +3,10 @@ from django.contrib.auth import views as auth_views
 
 from . import views
 
+comment = [
+    url(r'^add/(?P<parent_id>\d+)/$', views.CommentCreate.as_view(), name='comment-add'),
+]
+
 accounts = [
     url(r'^signup/$', views.SignUpView.as_view(), name='signup'),
     url(r'^profile/$', views.ProfileView.as_view(), name='profile'),
@@ -17,6 +21,7 @@ article = [
    url(r'^(?P<pk>\d+)/$', views.ArticleUpdate.as_view(), name='article-update'),
    url(r'^(?P<pk>\d+)/delete/$', views.ArticleDelete.as_view(), name='article-delete'),
    url(r'^(?P<pk>\d+)/get/$', views.ArticleGet.as_view(), name='article-get'),
+   url(r'^(?P<pk>\d+)/comment/', include(comment)),
 ]
 
 urlpatterns = [

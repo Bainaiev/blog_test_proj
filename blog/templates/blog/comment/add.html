@@ -1,0 +1,49 @@
+{% extends "blog/nav.html" %}
+
+{% load static %}
+
+{% block title %}<title>Get article</title>{% endblock %}
+
+{% block main %}
+
+            <main>
+            	<div class="article-block">
+            		<div class="top">
+            			<h1>Articles</h1>
+            		</div>
+            	
+         
+                <div class="article-wrapper">
+                    <div class="article">
+                        <p class="headline">"{{article.headline}}"</p>
+                        <p class="content">{{article.content}}</p>
+                        <p class="tags">{{article.tags}}</p>
+                        <p class="posted">{{article.posted}}</p>
+                    </div>
+                </div>  
+               
+				
+				</div>
+
+                 <form action="{% url 'comment-add' article.id 0 %}" method="POST">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <div class="form-wrapper">
+                            
+                            <div class="text">
+                                {{ form.message.errors }}
+                                <label for="{{ form.text.id_for_label }}">Your comment:</label><br/> 
+                                {{ form.message }}
+                            </div>
+                            {{form.parent_id}}
+                            {{form.content_id}}
+                            {{form.content_type}}
+                            {{form.user}}
+                            <input type="submit" value="Save Comment">
+                        </div>
+                        
+                    </form>
+
+            </main>
+			
+{% endblock %}
